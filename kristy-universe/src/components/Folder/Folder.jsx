@@ -110,7 +110,7 @@ const Folder = ({ color = '#5227FF', size = 1, items = [], className = '', gradi
             <feColorMatrix in="grain" type="saturate" values="0"/>
             <feComponentTransfer result="softGrain"><feFuncA type="linear" slope="0.045"/></feComponentTransfer>
             <feBlend in="paint" in2="softGrain" mode="soft-light" result="surface"/>
-            <feComponentTransfer in="surface" result="translucent"><feFuncA type="linear" slope="0.76"/></feComponentTransfer>
+            <feComponentTransfer in="surface" result="translucent"><feFuncA type="linear" slope="0.60"/></feComponentTransfer>
             <feComposite in="translucent" in2="SourceAlpha" operator="in" result="glass"/>
             <feMorphology in="SourceAlpha" operator="erode" radius="0.006" result="inset"/>
             <feComposite in="SourceAlpha" in2="inset" operator="out" result="rim"/>
@@ -172,11 +172,26 @@ const Folder = ({ color = '#5227FF', size = 1, items = [], className = '', gradi
               fill={'url(#' + gradientId + '-back)'} stroke="#ffffff55" strokeWidth="0.6"/>
           </svg>
           {gradient ? <>
-          <div className="folder__backdrop" aria-hidden="true" style={{ clipPath: 'url(#' + gradientId + '-clip)' }}/>
-          <div className="folder__cover" style={{ filter: 'url(#' + gradientId + ')' }}>
-            <div className="folder__front"></div>
-            <div className="folder__front right"></div>
-          </div></> : <>
+          <svg className="folder__frost" viewBox="0 0 140 80" aria-hidden="true">
+            <defs><filter id={gradientId + '-frost'} x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="8"/></filter><clipPath id={gradientId + '-frost-clip'}>
+              {/* Same two panel silhouettes as the cover, in the 140 × 80 viewBox. */}
+              <path transform="matrix(100 0 12.86152 48 7.13846 32)" d="M.05 0H.9Q1 0 1 .125V.875Q1 1 .9 1H.1Q0 1 0 .875V.0625Q0 0 .05 0Z"/>
+              <path transform="matrix(100 0 -12.86152 48 32.8615 32)" d="M.05 0H.9Q1 0 1 .125V.875Q1 1 .9 1H.1Q0 1 0 .875V.0625Q0 0 .05 0Z"/>
+            </clipPath>
+              <linearGradient id={gradientId + '-tint'} x1="0" y1="0" x2="1" y2="1">
+                <stop stopColor={gradient.glow}/><stop offset=".45" stopColor={gradient.from}/><stop offset="1" stopColor={gradient.to}/>
+              </linearGradient>
+            </defs>
+            <g clipPath={'url(#' + gradientId + '-frost-clip)'}>
+              <rect width="140" height="80" fill={folderBackColor}/>
+              <g filter={'url(#' + gradientId + '-frost)'} fill="white" opacity={open ? '.25' : '.92'}>
+                <rect x="35" y={open ? -40 : 8} width="70" height="64" rx="10"/>
+                <rect x="30" y={open ? -45 : 16} width="80" height="56" rx="10"/>
+                <rect x="25" y={open ? -50 : 24} width="90" height="48" rx="10"/>
+              </g>
+              <rect width="140" height="80" fill={'url(#' + gradientId + '-tint)'} opacity=".6"/>
+            </g>
+          </svg></> : <>
             <div className="folder__front"></div>
             <div className="folder__front right"></div>
           </>}
