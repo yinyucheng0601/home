@@ -144,3 +144,29 @@ header,footer{opacity:0;animation:shell-in 0.637s ease 2.958s forwards}
 .contact-links{display:flex;flex-direction:column;align-items:flex-start;gap:16px;margin-top:28px}
 .contact-links a{border-bottom:1px solid #cbc8c3;padding-bottom:4px;overflow-wrap:anywhere}
 .contact-links a:hover{color:#303438;border-color:currentColor}
+
+/* SVG marks and explicit control styles avoid platform emoji and iOS button defaults. */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+button{color:inherit;-webkit-appearance:none;appearance:none}
+.ui-icon{display:inline-block;width:1em;height:1em;vertical-align:-.12em;flex-shrink:0}
+.menu{display:flex;align-items:center;gap:8px;color:#18181b}
+.avatar .ui-icon{width:19px;height:19px}
+.note .ui-icon{width:22px;height:22px}
+@media(max-width:600px){
+  #root{min-height:100svh}
+  header{height:90px;padding:19px 5%}
+  .brand small{font-size:7px;letter-spacing:1.5px}
+  main{min-height:620px;height:calc(100svh - 140px);flex:1}
+  .intro{top:49%;width:94%}
+  h1{font-size:clamp(26px,7.2vw,36px)}
+  .hello{font-size:19px;margin:10px 0 16px}
+  .sub{font-size:11px;line-height:1.65;margin:17px auto 0;max-width:340px;padding:0 8px}
+  .sub br{display:none}
+  .avatar{width:29px;height:29px}
+  .spot{width:39vw;max-width:170px}
+  .s0,.s1{top:21%}.s2,.s3{top:80%}
+  .note{font-size:16px}
+  .n0,.n1{top:3%}.n2,.n3{top:92%}
+  footer{min-height:50px;padding:14px 5%;font-size:9px;gap:8px}
+  .ring{min-width:0}.r1{width:88%}.r2{width:125%}.r3{width:163%}
+}
